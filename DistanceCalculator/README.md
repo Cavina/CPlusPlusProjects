@@ -7,8 +7,7 @@ The difficult part of the project was deciding on how best
 handle up to a billion objects.  This is the part that would likely
 be taken.
 My Object files for input and the Location object, as well as implementing 
-Haversine are all very straightforwards, so I've left them up in my public repo.  If you have to copy that as a CS student 
-at UCI or any school for that matter, you shouldn't be there. 
+Haversine are all very straightforwards, so I've left them up in my public repo.  
 
 
 #09/09/2020
