@@ -6,15 +6,11 @@
 
 #IncludeRegexTransform: 
 
-../core/LinkedList.hpp
+/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/core/LinkedList.hpp
 
 /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/MyLinkedListTests.cpp
-LinkedList.hpp
-/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/LinkedList.hpp
-gtest/gtest.h
--
-
-/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/gtestmain.cpp
+../core/LinkedList.hpp
+/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/core/LinkedList.hpp
 gtest/gtest.h
 -
 

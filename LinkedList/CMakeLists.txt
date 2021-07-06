@@ -10,7 +10,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-set(COMPILE_FLAGS "-std=c++17 -stdlib=libc++ -Wall -pedantic-errors -Werror -g -fstandalone-debug")
+set(COMPILE_FLAGS "-std=c++17 -stdlib=libc++ -Wall -pedantic-errors -Werror -g  -fstandalone-debug")
 
 project(linkedlistproject)
 
@@ -48,11 +48,15 @@ target_link_libraries(${PROJECT_NAME} c++ pthread ${CORE_LIBS})
 
 project(a.out.gtest)
 
+include_directories(${CMAKE_SOURCE_DIR}/gtest)
+include_directories(${CMAKE_SOURCE_DIR}/core)
+
 file(GLOB GTEST_SRC_FILES ${CMAKE_SOURCE_DIR}/gtest/*.cpp)
 file(GLOB GTEST_INCLUDE_FILES ${CMAKE_SOURCE_DIR}/gtest/*.hpp)
+add_definitions("-std=c++17 -Wall -Wno-c++17-extensions -pedantic-errors -Werror -g
+-fstandalone-debug")
 
 add_executable(${PROJECT_NAME} ${GTEST_SRC_FILES} ${GTEST_INCLUDE_FILES}) 
-#set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/core)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/app)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/gtest)

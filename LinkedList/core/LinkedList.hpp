@@ -34,25 +34,31 @@ class LinkedList
         //
         //Assignment move
         LinkedList& operator=(const LinkedList&& list);
+        */
+        
         //
         //Add To Start of List
         void addToStart(const ValueType& value);
         //
+        
         //Add to End of List
         void addToEnd(const ValueType& value);
+        
         //
         //remove From start of list
         void removeFromStart();
         //
         //remove from end of list
+        
         void removeFromEnd();
+       
         //
         //return value at front of list
-        const ValueType& getFirst() const;
+        const ValueType& first() const;
         //
         //return value at end of list
-        const ValueType& getEnd() const;
-        */
+        const ValueType& last() const;
+        
         //
         //return if list is empty
         bool isEmpty() const noexcept;
@@ -75,14 +81,13 @@ class LinkedList
 
         Node* head;
         Node* tail;
-        unsigned int length;
 
 
 };
 
 
 template <typename ValueType>
-LinkedList<ValueType>::LinkedList() noexcept : head(nullptr), tail(nullptr), length(){}
+LinkedList<ValueType>::LinkedList() noexcept : head(nullptr), tail(nullptr){}
 
 template <typename ValueType>
 LinkedList<ValueType>::LinkedList(const LinkedList& list)
@@ -90,6 +95,7 @@ LinkedList<ValueType>::LinkedList(const LinkedList& list)
      if(this != &list)
      {
          head = copyAll(list); 
+         tail = list.tail;
      }
 }
 
@@ -107,7 +113,7 @@ typename LinkedList<ValueType>::Node* LinkedList<ValueType>::copyAll(const Linke
         curr = curr->next;
     }
 
-
+     return newHead;
 }
 
 template <typename ValueType>
@@ -150,4 +156,119 @@ LinkedList<ValueType>::~LinkedList()
      destroyAll();
      head = nullptr;
 }
+
+template <typename ValueType>
+void LinkedList<ValueType>::addToStart(const ValueType& value)
+{
+    Node* temp = nullptr;
+    if(head != nullptr)
+    {
+        temp = head;
+        try{
+          head = new Node{value, temp};
+        }catch(...)
+        {
+           throw;
+        }
+    }
+    else
+    {
+        try{
+         head = new Node{value, nullptr};
+        }catch(...)
+        {
+            throw;
+        }
+    }
+
+}
+
+template <typename ValueType>
+const ValueType& LinkedList<ValueType>::first() const
+{
+    return head->value;
+}
+
+template <typename ValueType>
+const ValueType& LinkedList<ValueType>::last() const
+{
+    Node* curr = head;
+    while(curr != nullptr)
+    {
+        if(curr->next == nullptr)
+        {
+             return curr->value;
+        }
+
+        curr = curr->next;
+    }
+
+    return head->value;
+
+}
+
+template <typename ValueType>
+void LinkedList<ValueType>::addToEnd(const ValueType& value)
+{
+     Node* curr = head;
+     if(curr == nullptr)
+         try{
+         head = new Node{value, nullptr};
+         }catch(...)
+     {
+         throw;
+     }
+
+
+     while(curr != nullptr)
+     {
+         if(curr->next == nullptr)
+         {
+             try{
+             curr->next = new Node{value, nullptr};
+             break;
+             }catch(...)
+             {
+                 throw;
+             }
+         
+         }
+         curr = curr->next;
+     }
+
+}
+
+template <typename ValueType>
+void LinkedList<ValueType>::removeFromStart()
+{
+    if(head != nullptr)
+    {
+         Node* temp = head;
+         head = head->next;
+         delete temp;
+    }
+
+}
+
+template <typename ValueType>
+void LinkedList<ValueType>::removeFromEnd()
+{
+    //TODO fix this
+    Node* curr = head;
+    while(curr != nullptr)
+    {
+       if(curr->next == nullptr)
+       {
+           delete curr;
+           curr = nullptr;
+       }
+       else
+       {
+           curr = curr->next;
+       }
+
+    }
+     
+}
+
 #endif
