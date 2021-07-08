@@ -32,7 +32,7 @@ TEST(MyLinkedListTests, copyListSizeZero)
      EXPECT_EQ(myList.size(), mySecondList.size());
 }
 
-TEST(MyLinkedListTests, firstListStillIntact)
+TEST(MyLinkedListTests, firstListStillIntactWhenCopy)
 {
     //initiliaze list with data
      LinkedList<int> myList{};
@@ -44,6 +44,49 @@ TEST(MyLinkedListTests, firstListStillIntact)
      //check first list is still intact with original
      //data
      EXPECT_EQ(0, myList.size());
+}
+
+TEST(MyLinkedListTests, MoveConstructorWorks)
+{
+    LinkedList<int> list1{};
+    list1.addToStart(5);
+    LinkedList<int> list2(std::move(list1));
+
+    EXPECT_EQ(5, list2.first());
+    list1.addToStart(6);
+
+    EXPECT_EQ(5, list2.first());
+    EXPECT_EQ(6, list1.first());
+}
+
+TEST(MyLinkedListTests, canCopyAssign)
+{
+     LinkedList<int> list1{};
+     list1.addToStart(5);
+     LinkedList<int> list2{};
+
+     list2 = list1;
+     list1.addToStart(6);
+
+     EXPECT_EQ(5, list2.first());
+     EXPECT_EQ(6, list1.first());
+}
+
+TEST(MyLinkedListTests, canMoveAssign)
+{
+     LinkedList<int> list1{};
+     list1.addToStart(5);
+
+     LinkedList<int> list2{};
+     
+     list2 = std::move(list1);
+
+     list1.addToStart(6);
+
+     EXPECT_EQ(5, list2.first());
+
+
+
 }
 
 TEST(MyLinkedListTests, canAddToStartOfNewList)
@@ -154,3 +197,4 @@ TEST(MyLinkedListTests, canRemoveFromEndExistingList)
 
     EXPECT_EQ(6, list.last());
 }
+

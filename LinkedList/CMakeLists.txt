@@ -12,7 +12,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(COMPILE_FLAGS "-std=c++17 -stdlib=libc++ -Wall -pedantic-errors -Werror -g  -fstandalone-debug")
 
-project(linkedlistproject)
+project(basicproject)
 
 file(GLOB CORE_SRC_FILES ${CMAKE_SOURCE_DIR}/core/*.cpp)
 file(GLOB CORE_INCLUDE_FILES ${CMAKE_SOURCE_DIR}/core/*.hpp)

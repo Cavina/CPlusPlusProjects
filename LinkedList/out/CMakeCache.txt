@@ -212,10 +212,10 @@ a.out.gtest_BINARY_DIR:STATIC=/home/cavina/Desktop/GitRepos/CPlusPlusProjects/Li
 a.out.gtest_SOURCE_DIR:STATIC=/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList
 
 //Value Computed by CMake
-linkedlistproject_BINARY_DIR:STATIC=/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/out
+basicproject_BINARY_DIR:STATIC=/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/out
 
 //Value Computed by CMake
-linkedlistproject_SOURCE_DIR:STATIC=/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList
+basicproject_SOURCE_DIR:STATIC=/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList
 
 
 ########################

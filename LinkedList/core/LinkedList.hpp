@@ -20,21 +20,22 @@ class LinkedList
         //Copy Constructor
         LinkedList(const LinkedList& list);
         //
-        /*
+        
         //Move Constructor
-        LinkedList(const LinkedList&& list);
+        LinkedList(LinkedList&& list) noexcept;
         //
-        */
+        
         //Destructor
-        ~LinkedList();
+        ~LinkedList() noexcept;
         //
-        /*
+        
         //Assignment copy
         LinkedList& operator=(const LinkedList& list);
         //
+        
         //Assignment move
-        LinkedList& operator=(const LinkedList&& list);
-        */
+        LinkedList& operator=(LinkedList&& list) noexcept;
+        
         
         //
         //Add To Start of List
@@ -100,6 +101,19 @@ LinkedList<ValueType>::LinkedList(const LinkedList& list)
 }
 
 template <typename ValueType>
+LinkedList<ValueType>::LinkedList(LinkedList&& list) noexcept
+{
+    if(this != &list)
+    {
+        this->head = list.head;
+        list.head = nullptr;
+    }
+
+
+
+}
+
+template <typename ValueType>
 typename LinkedList<ValueType>::Node* LinkedList<ValueType>::copyAll(const LinkedList& list)
 {
     Node* curr = list.head;
@@ -114,6 +128,35 @@ typename LinkedList<ValueType>::Node* LinkedList<ValueType>::copyAll(const Linke
     }
 
      return newHead;
+}
+
+template <typename ValueType>
+LinkedList<ValueType>& LinkedList<ValueType>::operator=(LinkedList&& list) noexcept
+{
+     if(this != &list)
+     {
+         destroyAll();
+         this->head = list.head;
+         list.head = nullptr;
+     }
+     return *this;
+}
+template <typename ValueType>
+LinkedList<ValueType>& LinkedList<ValueType>::operator=(const LinkedList& list)
+{
+    if(this != &list)
+    {
+        Node* temp = nullptr;
+        try{
+            temp = copyAll(list);
+            this->head = temp;
+        }catch(...)
+        {
+            throw;
+        }
+          
+    }
+    return *this;
 }
 
 template <typename ValueType>
@@ -151,10 +194,13 @@ bool LinkedList<ValueType>::isEmpty() const noexcept
 }
 
 template <typename ValueType>
-LinkedList<ValueType>::~LinkedList()
+LinkedList<ValueType>::~LinkedList() noexcept
 {
-     destroyAll();
-     head = nullptr;
+    if(head != nullptr)
+    {
+        destroyAll();
+        head = nullptr;
+    }
 }
 
 template <typename ValueType>
@@ -255,10 +301,20 @@ void LinkedList<ValueType>::removeFromEnd()
 {
     //TODO fix this
     Node* curr = head;
+    if(curr == nullptr)
+        return;
     while(curr != nullptr)
     {
-       if(curr->next == nullptr)
+       if(curr->next == nullptr && curr==head)
        {
+           delete head;
+           curr = nullptr;
+           head = nullptr;
+       }
+       else if(curr->next == nullptr)
+       {
+           if(curr == head->next)
+               head->next = nullptr;
            delete curr;
            curr = nullptr;
        }
