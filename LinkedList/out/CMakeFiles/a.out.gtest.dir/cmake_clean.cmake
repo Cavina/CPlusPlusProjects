@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/a.out.gtest.dir/gtest/MyLinkedListTests.cpp.o"
+  "CMakeFiles/a.out.gtest.dir/gtest/NonCopyable.cpp.o"
   "CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
   "bin/a.out.gtest"
   "bin/a.out.gtest.pdb"

@@ -190,6 +190,33 @@ gtest/MyLinkedListTests.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/MyLinkedListTests.cpp.s
 .PHONY : gtest/MyLinkedListTests.cpp.s
 
+gtest/NonCopyable.o: gtest/NonCopyable.cpp.o
+
+.PHONY : gtest/NonCopyable.o
+
+# target to build an object file
+gtest/NonCopyable.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/NonCopyable.cpp.o
+.PHONY : gtest/NonCopyable.cpp.o
+
+gtest/NonCopyable.i: gtest/NonCopyable.cpp.i
+
+.PHONY : gtest/NonCopyable.i
+
+# target to preprocess a source file
+gtest/NonCopyable.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/NonCopyable.cpp.i
+.PHONY : gtest/NonCopyable.cpp.i
+
+gtest/NonCopyable.s: gtest/NonCopyable.cpp.s
+
+.PHONY : gtest/NonCopyable.s
+
+# target to generate assembly for a file
+gtest/NonCopyable.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/NonCopyable.cpp.s
+.PHONY : gtest/NonCopyable.cpp.s
+
 gtest/gtestmain.o: gtest/gtestmain.cpp.o
 
 .PHONY : gtest/gtestmain.o
@@ -233,6 +260,9 @@ help:
 	@echo "... gtest/MyLinkedListTests.o"
 	@echo "... gtest/MyLinkedListTests.i"
 	@echo "... gtest/MyLinkedListTests.s"
+	@echo "... gtest/NonCopyable.o"
+	@echo "... gtest/NonCopyable.i"
+	@echo "... gtest/NonCopyable.s"
 	@echo "... gtest/gtestmain.o"
 	@echo "... gtest/gtestmain.i"
 	@echo "... gtest/gtestmain.s"

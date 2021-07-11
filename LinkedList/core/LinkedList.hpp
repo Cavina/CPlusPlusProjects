@@ -1,6 +1,6 @@
 //LinkedList.hpp
 //
-//A generic LinkedList
+//A generic Singly LinkedList
 #ifndef LINKEDLIST_hpp
 #define LINKEDLIST_hpp
 
@@ -14,62 +14,68 @@ class LinkedList
 
     public:
         //Default Constructor
+        //Constructs an empty list
         LinkedList() noexcept;
         
         
         //Copy Constructor
+        //This list becomes a copy of the argument.
         LinkedList(const LinkedList& list);
-        //
         
         //Move Constructor
+        //Constructs this list with the contents of an expiring one.
         LinkedList(LinkedList&& list) noexcept;
-        //
         
         //Destructor
         ~LinkedList() noexcept;
-        //
         
         //Assignment copy
+        //Copies and assigns a list to this one.
         LinkedList& operator=(const LinkedList& list);
-        //
         
         //Assignment move
+        //Moves the contents of an expiring list to this one.
         LinkedList& operator=(LinkedList&& list) noexcept;
         
-        
-        //
         //Add To Start of List
+        //Adds a value to the start of the list
         void addToStart(const ValueType& value);
-        //
         
         //Add to End of List
+        //Adds a value to the end of the list
         void addToEnd(const ValueType& value);
         
-        //
         //remove From start of list
+        //Removes a node from the beginning of the list
         void removeFromStart();
-        //
+
         //remove from end of list
-        
+        //Removes a node from the end of the list
         void removeFromEnd();
        
-        //
         //return value at front of list
+        //returns the value stored at the front of the list 
         const ValueType& first() const;
-        //
+
         //return value at end of list
+        //returns the value stored at the end of the list
         const ValueType& last() const;
         
-        //
         //return if list is empty
+        //returns true if the list is empty
         bool isEmpty() const noexcept;
-        //
+
         //return size of list
         unsigned int size() const noexcept;
 
     private:
+
+        //Copies all nodes of a passed linkedlist and returns a pointer to the head node.
         Node* copyAll(const LinkedList& s);
-        void destroyAll() noexcept;
+
+        //Destroys all nodes of the list.
+        //Is guaranteed to throw no exceptions.
+        void destroyAll(Node* h) noexcept;
 
 
 
@@ -81,66 +87,82 @@ class LinkedList
         };
 
         Node* head;
-        Node* tail;
 
 
 };
 
 
 template <typename ValueType>
-LinkedList<ValueType>::LinkedList() noexcept : head(nullptr), tail(nullptr){}
+LinkedList<ValueType>::LinkedList() noexcept : head(nullptr){}
+
 
 template <typename ValueType>
-LinkedList<ValueType>::LinkedList(const LinkedList& list)
+LinkedList<ValueType>::LinkedList(const LinkedList& list) : head(nullptr)
 {
      if(this != &list)
      {
-         head = copyAll(list); 
-         tail = list.tail;
+         try{
+             head = copyAll(list); 
+         }catch(...)
+         {
+             throw;
+         }
      }
 }
 
 template <typename ValueType>
-LinkedList<ValueType>::LinkedList(LinkedList&& list) noexcept
+LinkedList<ValueType>::LinkedList(LinkedList&& list) noexcept : head(nullptr)
 {
     if(this != &list)
     {
         this->head = list.head;
         list.head = nullptr;
     }
-
-
-
 }
 
+
+//Sets curr to the head of the to-be-copied list
+//sets newHead to nullptr
+//
+//Create a new node and copy the old data into it.
+//If an error occurs during creation, we destroy all the previously copied and head, and we 
+//reset the head to null.  This provides a strong exception guarantee.
 template <typename ValueType>
 typename LinkedList<ValueType>::Node* LinkedList<ValueType>::copyAll(const LinkedList& list)
 {
     Node* curr = list.head;
     Node* newHead = nullptr;
 
-    //Initializes the newHead with the value, AFTER setting next to nullptr.
-    
-    while(curr != nullptr)
-    {
-        newHead = new Node{curr->value, newHead};
-        curr = curr->next;
-    }
-
-     return newHead;
+    try{
+        while(curr != nullptr)
+          {
+             newHead = new Node{curr->value, newHead};
+             curr = curr->next;
+          }
+          
+          return newHead;
+        }
+        catch(...)
+        {
+            destroyAll(newHead);
+            newHead = nullptr;
+            throw;
+        }
 }
+
 
 template <typename ValueType>
 LinkedList<ValueType>& LinkedList<ValueType>::operator=(LinkedList&& list) noexcept
 {
      if(this != &list)
      {
-         destroyAll();
+         destroyAll(this->head);
          this->head = list.head;
          list.head = nullptr;
      }
      return *this;
 }
+
 template <typename ValueType>
 LinkedList<ValueType>& LinkedList<ValueType>::operator=(const LinkedList& list)
 {
@@ -160,9 +182,9 @@ LinkedList<ValueType>& LinkedList<ValueType>::operator=(const LinkedList& list)
 }
 
 template <typename ValueType>
-void LinkedList<ValueType>::destroyAll() noexcept
+void LinkedList<ValueType>::destroyAll(Node* n) noexcept
 {
-     Node* curr = this->head;
+     Node* curr = n;
 
      while (curr != nullptr)
      {
@@ -198,7 +220,7 @@ LinkedList<ValueType>::~LinkedList() noexcept
 {
     if(head != nullptr)
     {
-        destroyAll();
+        destroyAll(head);
         head = nullptr;
     }
 }

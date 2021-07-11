@@ -5,7 +5,9 @@
 
 
 #include "../core/LinkedList.hpp"
+#include "../gtest/NonCopyable.cpp"
 #include <gtest/gtest.h>
+#include <vector>
 
 //The constructor is empty when default constructed
 TEST(MyLinkedListTests, emptyWhenDefaultConstructed)
@@ -21,6 +23,7 @@ TEST(MyLinkedListTests, lengthIsZeroWhenDefaultConstructed)
      LinkedList<int> myList{};
      
      EXPECT_EQ(0, myList.size());
+     EXPECT_TRUE(myList.isEmpty());
 }
 
 //Copy constructor
@@ -44,7 +47,21 @@ TEST(MyLinkedListTests, firstListStillIntactWhenCopy)
      //check first list is still intact with original
      //data
      EXPECT_EQ(0, myList.size());
+     EXPECT_EQ(1, mySecondList.size());
 }
+
+/*
+TEST(MyLinkedListTests, ThrowsWhenNonCopyapble)
+{
+     LinkedList<noncopyable> list{};
+     noncopyable nc;
+     nc.value = 1;
+     
+
+     EXPECT_THROW(list.addToStart(nc), int);
+
+}
+*/
 
 TEST(MyLinkedListTests, MoveConstructorWorks)
 {

@@ -4,5 +4,8 @@
 CMakeFiles/a.out.gtest.dir/gtest/MyLinkedListTests.cpp.o
  /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/core/LinkedList.hpp
  /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/MyLinkedListTests.cpp
+ /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/NonCopyable.cpp
+CMakeFiles/a.out.gtest.dir/gtest/NonCopyable.cpp.o
+ /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/NonCopyable.cpp
 CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o
  /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/gtestmain.cpp

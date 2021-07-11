@@ -11,6 +11,12 @@
 /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/MyLinkedListTests.cpp
 ../core/LinkedList.hpp
 /home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/core/LinkedList.hpp
+../gtest/NonCopyable.cpp
+/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/NonCopyable.cpp
 gtest/gtest.h
 -
+vector
+-
+
+/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/NonCopyable.cpp
 
