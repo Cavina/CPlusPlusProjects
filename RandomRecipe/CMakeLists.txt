@@ -1,0 +1,64 @@
+cmake_minimum_required(VERSION 3.16)
+
+set(CMAKE_C_COMPILER clang-11)
+set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+set(COMPILE_FLAGS "-std=c++17 -stdlib=libc++ -Wall -pedantic-errors -Werror -g  -fstandalone-debug")
+
+project(basicproject)
+
+file(GLOB CORE_SRC_FILES ${CMAKE_SOURCE_DIR}/core/*.cpp)
+file(GLOB CORE_INCLUDE_FILES ${CMAKE_SOURCE_DIR}/core/*.hpp)
+
+
+if(CORE_SRC_FILES)
+    add_library(${PROJECT_NAME} STATIC ${CORE_SRC_FILES} ${CORE_INCLUDE_FILES})
+    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS})
+    target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/core)
+    target_link_libraries(${PROJECT_NAME} c++ pthread)
+
+    set(CORE_LIBS ${PROJECT_NAME})
+else()
+    set(CORE_LIBS)
+endif()
+  
+project(a.out.app)
+
+
+file(GLOB APP_SRC_FILES ${CMAKE_SOURCE_DIR}/app/*.cpp)
+file(GLOB APP_INCLUDE_FILES ${CMAKE_SOURCE_DIR}/core/*.hpp)
+
+set(APP_SRC_FILES_EXCEPT_MAIN ${APP_SRC_FILES})
+list(REMOVE_ITEM APP_SRC_FILES_EXCEPT_MAIN ${CMAKE_SOURCE_DIR}/app/main.cpp)
+
+message( "INCLUDE=${APP_INCLUDE_FILES}" )
+add_executable(${PROJECT_NAME} ${APP_SRC_FILES} ${APP_INCLUDE_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/core)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/app)
+target_link_libraries(${PROJECT_NAME} c++ pthread ${CORE_LIBS})
+
+
+project(a.out.gtest)
+
+include_directories(${CMAKE_SOURCE_DIR}/gtest)
+include_directories(${CMAKE_SOURCE_DIR}/core)
+
+file(GLOB GTEST_SRC_FILES ${CMAKE_SOURCE_DIR}/gtest/*.cpp)
+file(GLOB GTEST_INCLUDE_FILES ${CMAKE_SOURCE_DIR}/gtest/*.hpp)
+add_definitions("-std=c++17 -Wall -Wno-c++17-extensions -pedantic-errors -Werror -g
+-fstandalone-debug")
+
+add_executable(${PROJECT_NAME} ${CORE_SRC_FILES} ${CORE_INCLUDE_FILES} ${GTEST_SRC_FILES} ${GTEST_INCLUDE_FILES}) 
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/core)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/app)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/gtest)
+target_link_libraries(${PROJECT_NAME} pthread c++ gtest gtest_main ${CORE_LIBS})
+

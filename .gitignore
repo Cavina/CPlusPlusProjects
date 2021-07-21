@@ -1,6 +1,6 @@
 debug
 build
 clean
-/require
-/run
-/LinkedList/out
+require
+run
+out/
