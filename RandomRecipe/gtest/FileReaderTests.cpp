@@ -13,6 +13,7 @@ TEST(FileReaderTests, canOpenFile)
 TEST(FileReaderTests, GoodStateIfCantReadFile)
 {
      TextFileReader fr{"nofile.txt"};
+
 }
 
 TEST(FileReaderTests, returnsEmptyStringIfNoFile)

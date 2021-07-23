@@ -9,6 +9,7 @@
 class TextFileWriter
 {
     public:
+         TextFileWriter() = default;
 	    TextFileWriter(const std::string& filepath);
          void closeFile();
 	    ~TextFileWriter();

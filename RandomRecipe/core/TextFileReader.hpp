@@ -11,6 +11,7 @@
 class TextFileReader
 {
     public:
+         TextFileReader() = default;
 	    TextFileReader(const std::string& filepath);
          ~TextFileReader();
 	    void advanceToNextLine();

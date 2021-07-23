@@ -9,7 +9,7 @@ struct Recipe{
 
     std::string name;
     std::string location;
-    bool hasMeat;
+    bool hasMeat = true;
     
 
 };
