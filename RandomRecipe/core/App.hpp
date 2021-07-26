@@ -14,6 +14,7 @@ class App{
         void printWelcomeMessage() noexcept;
         void displayMenu();
         void printRecipeList();
+        void printRandomRecipeList();
 
     private:
         RecipeList list;

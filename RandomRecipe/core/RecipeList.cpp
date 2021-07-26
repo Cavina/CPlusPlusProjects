@@ -58,10 +58,10 @@ std::vector<Recipe> RecipeList::getListOfRecipes(int n)
 std::vector<Recipe> RecipeList::getListOfRandomRecipes(int n)
 {
     std::default_random_engine engine(device());
-    std::vector<Recipe> list = getListOfRecipes(n);
-    std::shuffle(std::begin(list), std::end(list), engine);
+    std::shuffle(std::begin(recipes), std::end(recipes), engine);
+    std::vector<Recipe> rlist = getListOfRecipes(n);
      
-    return list;
+    return rlist;
 
 }
 

@@ -1,6 +1,7 @@
 //App.cpp
 //
 #include "../core/App.hpp"
+#include <iostream>
 
 
 void App::runApplication()
@@ -33,37 +34,42 @@ void App::printRecipeList()
         std::cout << r.name << std::endl;
         std::cout << r.location << std::endl;
     }
+}
 
+void App::printRandomRecipeList()
+{
+    std::vector<Recipe> randomList = list.getListOfRandomRecipes(list.size()); 
+    for(unsigned int i = 0; i < randomList.size(); ++i)
+    {
+        Recipe r = randomList.at(i);
+        std::cout << r.name << std::endl;
+        std::cout << r.location << std::endl;
+    }
 }
 
 void App::loadData()
 {
      TextFileReader filereader{"current.txt"};
+     std::string delimiter = "$"; 
+     std::string token;
+     std::string name;
+     std::string location;
      while(!filereader.endOfFile())
      {
         std::string s = filereader.getCurrentLine();
-        char delimiter = '$'; 
-        std::string name;
-        std::string location;
+        size_t pos = 0;
 
-        std::string::iterator it;
-        for(it = s.begin(); it != s.end(); ++it)
+        while((pos = s.find(delimiter)) != std::string::npos)
         {
-            if(*it == delimiter)
-            {
-               ++it;
-               while(it != s.end())
-               {
-                   location += (*it);
-                   ++it;
-               }
-            }
-
-            if(it != s.end())
-                name+=(*it);
+            token = s.substr(0, pos);
+            name = token;
+            s.erase(0, pos + delimiter.length());
+            location = s;
         }
+
         Recipe r{name, location}; 
         list.addRecipeToList(r);
+        filereader.advanceToNextLine();
 
      }
 
