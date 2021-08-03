@@ -44,15 +44,17 @@ void App::runApplication()
 
         std::vector<Recipe> v = fullList.getListOfRandomRecipes(fullList.size(), engine);  
 
+       TextFileWriter writer("current.txt");
+       for(auto elem : v)
+       {
+           writer.writeLineToFile(elem.name + "$" + elem.location + "$" + elem.vegetarian);
+               }
+       else if(input == 2)
+       {
 
-        
-        for(auto elem:v)
-        {
-            std::cout << elem.name << std::endl;
-            std::cout << elem.location << std::endl;
-            std::cout << elem.vegetarian << std::endl;
 
-        }
+       }
+
 
 
 
@@ -117,9 +119,9 @@ void App::printRandomRecipeList(const std::default_random_engine& engine)
     }
 }
 
-void App::loadData()
+void App::loadData(std::string filename)
 {
-     TextFileReader filereader{"current.txt"};
+     TextFileReader filereader{"master.txt"};
      std::string delimiter = "$"; 
      std::string token;
      std::string name;
