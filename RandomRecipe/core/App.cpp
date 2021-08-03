@@ -3,6 +3,7 @@
 #include "../core/App.hpp"
 #include <iostream>
 
+ 
 
 void App::runApplication()
 {
@@ -10,10 +11,68 @@ void App::runApplication()
     printWelcomeMessage();
     //load data
     loadData();
+    std::random_device device;
+    std::default_random_engine engine(device());
     if(list.size() == 0)
         std::cout << "NO recipes in file or wrong file" << std::endl;
+    std::cout << mainmenu().menu;
+    std::cout << mainmenu().make_selection;
+    int input = 0;
+    while(input != 1)
+    {
+        std::cin >> input; 
+        if(input != 1)
+            std::cout << "Not a selection." << std::endl;
+    }
+        
+    if(input == 1)
+    {
+        unsigned int no_of_meat = getTotalMealsFromUser();
+        unsigned int no_of_veget = getTotalMealsFromUser(1);
+
+        std::vector<Recipe> vList = list.getVegetarianRecipes().getListOfRandomRecipes(no_of_veget, engine);
+        std::vector<Recipe> mList = list.getMeatRecipes().getListOfRandomRecipes(no_of_meat, engine);
+
+        RecipeList fullList{vList};
+
+        auto it = mList.begin();
+        while(it != mList.end())
+        {
+            fullList.addRecipeToList(*it);
+            ++it;
+        }
+
+        std::vector<Recipe> v = fullList.getListOfRandomRecipes(fullList.size(), engine);  
+
+
+        
+        for(auto elem:v)
+        {
+            std::cout << elem.name << std::endl;
+            std::cout << elem.location << std::endl;
+            std::cout << elem.vegetarian << std::endl;
+
+        }
+
+
+
+          
+
+        //filter veggie meals
+        
+        
+        
+
+
+    }
+    
     //display the menu
 
+}
+
+const App::MainMenu& App::mainmenu()
+{
+    return menu;
 }
 
 void App::printWelcomeMessage() noexcept
@@ -23,7 +82,18 @@ void App::printWelcomeMessage() noexcept
 
     std::cout << message << std::endl;
     std::cout << loadmsg << std::endl;
+}
 
+unsigned int App::getTotalMealsFromUser(bool veggie)
+{
+    std::string msg = "Please enter how many " + std::string((veggie == 0) ? "Non-Vegetarian " : "Vegetarian ")
+        + "meals you would like";  
+    unsigned int meals = 0;
+
+    std::cout << msg << std::endl;
+    std::cin >> meals;
+
+    return meals;
 }
 
 void App::printRecipeList()
@@ -36,9 +106,9 @@ void App::printRecipeList()
     }
 }
 
-void App::printRandomRecipeList()
+void App::printRandomRecipeList(const std::default_random_engine& engine)
 {
-    std::vector<Recipe> randomList = list.getListOfRandomRecipes(list.size()); 
+    std::vector<Recipe> randomList = list.getListOfRandomRecipes(list.size(), engine); 
     for(unsigned int i = 0; i < randomList.size(); ++i)
     {
         Recipe r = randomList.at(i);
@@ -54,6 +124,7 @@ void App::loadData()
      std::string token;
      std::string name;
      std::string location;
+     std::string veggie;
      while(!filereader.endOfFile())
      {
         std::string s = filereader.getCurrentLine();
@@ -64,13 +135,19 @@ void App::loadData()
             token = s.substr(0, pos);
             name = token;
             s.erase(0, pos + delimiter.length());
-            location = s;
+            auto pos_two = s.find(delimiter);
+            token = s.substr(0, pos_two);
+            location = token;
+            s.erase(0, pos_two+delimiter.length());
+            veggie = s;
+
         }
 
-        Recipe r{name, location}; 
+        Recipe r{name, location, (veggie == "1")}; 
         list.addRecipeToList(r);
         filereader.advanceToNextLine();
-
      }
 
 }
+
+

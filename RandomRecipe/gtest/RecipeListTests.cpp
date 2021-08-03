@@ -44,7 +44,10 @@ TEST(RecipeListsTests, canRandomizeRecipes)
 
     RecipeList rlist{recipes};
 
-    std::vector<Recipe> randomlist = rlist.getListOfRandomRecipes(3);
+    std::random_device device;
+    std::default_random_engine engine(device());
+
+    std::vector<Recipe> randomlist = rlist.getListOfRandomRecipes(3, engine);
 
     int flag = 0;
     for(unsigned int count = 0; count < recipes.size(); ++count)

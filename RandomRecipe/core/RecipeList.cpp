@@ -2,16 +2,9 @@
 //
 //
 #include "../core/RecipeList.hpp"
+#include <random>
 
 
-RecipeList::RecipeList(const RecipeList& list)
-{
-    if(this != &list)
-    {
-        recipes = list.recipes;
-    }
-     
-}
 
 RecipeList::RecipeList(RecipeList&& list) noexcept
 {
@@ -55,14 +48,33 @@ std::vector<Recipe> RecipeList::getListOfRecipes(int n)
     return v;
 }
 
-std::vector<Recipe> RecipeList::getListOfRandomRecipes(int n)
+std::vector<Recipe> RecipeList::getListOfRandomRecipes(int n, std::default_random_engine engine)
 {
-    std::default_random_engine engine(device());
     std::shuffle(std::begin(recipes), std::end(recipes), engine);
-    std::vector<Recipe> rlist = getListOfRecipes(n);
-     
-    return rlist;
+    return getListOfRecipes(n);
+}
 
+RecipeList RecipeList::getVegetarianRecipes()
+{
+    RecipeList l;
+    for(auto recipe:recipes)
+    {
+        if(recipe.vegetarian == true)
+            l.addRecipeToList(recipe);
+    }
+    return l;
+}
+
+
+RecipeList RecipeList::getMeatRecipes()
+{
+    RecipeList l;
+    for(auto recipe:recipes)
+    {
+        if(recipe.vegetarian == false)
+            l.addRecipeToList(recipe);
+    }
+    return l;
 }
 
 unsigned int RecipeList::size()
