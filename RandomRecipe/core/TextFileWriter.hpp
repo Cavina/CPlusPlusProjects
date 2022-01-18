@@ -10,12 +10,17 @@ class TextFileWriter
 {
     public:
          TextFileWriter() = default;
-	    TextFileWriter(const std::string& filepath);
+	 //Constructor accepts a reference to a string for the filepath.
+	 TextFileWriter(const std::string& filepath);
+	 //Closes the current open file
          void closeFile();
-	    ~TextFileWriter();
-	    void writeLineToFile(const std::string& line);
+	 //Destructor
+	 ~TextFileWriter();
+	 //Writes a line to the file
+	 void writeLineToFile(const std::string& line);
     private:
-	    std::ofstream textFile;
+	 //An ofstream to hold the textfile's data.
+	 std::ofstream textFile;
 };
 
 #endif

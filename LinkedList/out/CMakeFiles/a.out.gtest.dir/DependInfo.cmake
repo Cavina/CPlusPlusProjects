@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/MyLinkedListTests.cpp" "/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/out/CMakeFiles/a.out.gtest.dir/gtest/MyLinkedListTests.cpp.o"
-  "/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/NonCopyable.cpp" "/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/out/CMakeFiles/a.out.gtest.dir/gtest/NonCopyable.cpp.o"
-  "/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/gtest/gtestmain.cpp" "/home/cavina/Desktop/GitRepos/CPlusPlusProjects/LinkedList/out/CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
+  "/home/chrisavina/Projects/CPlusPlusProjects/LinkedList/gtest/MyLinkedListTests.cpp" "/home/chrisavina/Projects/CPlusPlusProjects/LinkedList/out/CMakeFiles/a.out.gtest.dir/gtest/MyLinkedListTests.cpp.o"
+  "/home/chrisavina/Projects/CPlusPlusProjects/LinkedList/gtest/NonCopyable.cpp" "/home/chrisavina/Projects/CPlusPlusProjects/LinkedList/out/CMakeFiles/a.out.gtest.dir/gtest/NonCopyable.cpp.o"
+  "/home/chrisavina/Projects/CPlusPlusProjects/LinkedList/gtest/gtestmain.cpp" "/home/chrisavina/Projects/CPlusPlusProjects/LinkedList/out/CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 

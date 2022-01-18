@@ -1,7 +1,7 @@
 //TextFileReader.hpp
 //Reads from an input file 
 //If no file is loaded, then an empty string is output.
-//
+
 #ifndef TEXTFILEREADER_hpp
 #define TEXTFILEREADER_hpp
 
@@ -11,16 +11,25 @@
 class TextFileReader
 {
     public:
+	 //Default constructor 
          TextFileReader() = default;
-	    TextFileReader(const std::string& filepath);
+	 //Constructor accepts a reference to a string as the filepath.
+	 TextFileReader(const std::string& filepath);
+	 //Destructor
          ~TextFileReader();
-	    void advanceToNextLine();
-	    std::string getCurrentLine();
-	    bool endOfFile() const;
+	 //Advances to the next line of the file
+	 void advanceToNextLine();
+	 //Returns the current line as a string
+	 std::string getCurrentLine();
+	 //Returns true if the end of the file is reached.
+	 bool endOfFile() const;
     private:
-	    std::ifstream textFile;
-	    bool eof;
-	    std::string line;
+	 //ifstream to hold the textfile in a stream
+	 std::ifstream textFile;
+	 //boolean value to signify end of file
+	 bool eof;
+	 //a string that holds a line.
+	 std::string line;
 
 
 

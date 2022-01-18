@@ -47,25 +47,8 @@ void App::runApplication()
        TextFileWriter writer("current.txt");
        for(auto elem : v)
        {
-           writer.writeLineToFile(elem.name + "$" + elem.location + "$" + elem.vegetarian);
+           writer.writeLineToFile(elem.name + "$" + elem.location + "$" + (elem.vegetarian?'1':'0'));
                }
-       else if(input == 2)
-       {
-
-
-       }
-
-
-
-
-          
-
-        //filter veggie meals
-        
-        
-        
-
-
     }
     
     //display the menu
@@ -119,7 +102,7 @@ void App::printRandomRecipeList(const std::default_random_engine& engine)
     }
 }
 
-void App::loadData(std::string filename)
+void App::loadData()
 {
      TextFileReader filereader{"master.txt"};
      std::string delimiter = "$"; 
